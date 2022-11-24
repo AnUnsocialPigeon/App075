@@ -1,0 +1,17 @@
+﻿@page "/login"
+<PageTitle>Login</PageTitle>
+
+@if (LoggedIn == null) {
+    <h2>Loading...</h2>
+}
+else if (LoggedIn == true) {
+    <h3>You are currently logged in as: @Username</h3>
+    <RadzenButton Variant="Variant.Outlined" Text="Sign Out" ButtonStyle="ButtonStyle.Secondary" Click=@SignOutBTN_Clicked />
+}
+else {
+    <h2>Username:</h2>
+    <RadzenTextBox Placeholder="Username..." Class="w-100" @bind-Value="@Username" />
+    <br />
+    <RadzenButton Variant="Variant.Outlined" Text="Log In" ButtonStyle="ButtonStyle.Primary" Click=@SignInBTN_Clicked />
+
+}

@@ -1,0 +1,26 @@
+﻿:root {
+    --g1: #372549;
+    --g2: #1a1423;
+    --t1: #A06983;
+    --s1: #b75d69;
+    --p1: #eacdc2;
+}
+
+body {
+    background-color: #111217;
+}
+
+.background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -100;
+}
+
+.blur {
+    filter: blur(10px);
+}
+
+.darken {
+    filter: brightness(70%);
+}

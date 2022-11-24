@@ -1,0 +1,20 @@
+﻿@page "/"
+@inject NavigationManager NavManager
+
+<div class="background">
+    <div class="fire darken">
+        <div class="flames darken">
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+            <div class="flame"></div>
+        </div>
+        <div class="logs"></div>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized() {
+        //NavManager.NavigateTo("/login");
+    }
+}

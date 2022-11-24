@@ -1,0 +1,20 @@
+﻿@page "/psych"
+@using App075_2.Data.Psych
+@*@implements IAsyncDisposable*@
+
+<PageTitle>Psych</PageTitle>
+
+@if (LoggedIn is null){
+    <h2>Logging in...</h2>
+}
+else if (!(LoggedIn ?? false)){
+    <h2>Please log in</h2>
+}
+else if (Loading){
+    <h2>Connecting to game server...</h2>
+}
+else {
+    @foreach(Player p in GameInfo.Players){
+        <h3>@p.Username</h3>
+    }
+}
