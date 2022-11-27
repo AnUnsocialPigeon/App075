@@ -1,13 +1,12 @@
 ﻿namespace App075_2.Data.Psych {
     public class GameRoom {
-        public GameRoom(string username) {
-            Username = username;
-        }
+        public GameRoom() { }
+        
+        public string ConnectionID { get; set; }
 
         public List<Player> Players { get; set; } = new();
         public int GameState { get; set; } = 0;
 
-        public string Username { get; set; }
         public string CurrentAnswer { get; set; } = "";
         public int Score { get; set; } = 0;
 

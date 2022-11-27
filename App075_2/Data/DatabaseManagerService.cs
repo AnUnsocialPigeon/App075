@@ -37,8 +37,10 @@ namespace App075_2.Data {
         }
 
         public string FileName(string User) => $"{Directory.GetCurrentDirectory()}\\Users\\{User}.txt";
-        public bool UserExists(string User) => File.Exists(FileName(User));
-
+        
+        // Attempted file privelage escallation will result in false
+        public bool UserExists(string User) => !User.Any(x => @"\./".Contains(User)) && File.Exists(FileName(User));
+        
 
         private const string DB_Users_Table = "users";
     }

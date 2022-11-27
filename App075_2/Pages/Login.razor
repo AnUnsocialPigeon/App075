@@ -1,11 +1,11 @@
 ﻿@page "/login"
 <PageTitle>Login</PageTitle>
 
-@if (LoggedIn == null) {
+@if (LoginHandler.LoggedIn is null) {
     <h2>Loading...</h2>
 }
-else if (LoggedIn == true) {
-    <h3>You are currently logged in as: @Username</h3>
+else if (LoginHandler.LoggedIn ?? false) {
+    <h3>You are currently logged in as: @LoginHandler.Username</h3>
     <RadzenButton Variant="Variant.Outlined" Text="Sign Out" ButtonStyle="ButtonStyle.Secondary" Click=@SignOutBTN_Clicked />
 }
 else {

@@ -4,10 +4,10 @@
 
 <PageTitle>Psych</PageTitle>
 
-@if (LoggedIn is null){
+@if (LoginHandler.LoggedIn is null){
     <h2>Logging in...</h2>
 }
-else if (!(LoggedIn ?? false)){
+else if (!(LoginHandler.LoggedIn ?? false)){
     <h2>Please log in</h2>
 }
 else if (Loading){

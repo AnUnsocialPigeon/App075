@@ -9,17 +9,15 @@ namespace App075_2.Pages {
         private HubConnection? hubConnection;
         private bool Host { get; set; } = true;
         private bool Loading { get; set; } = true;
-        private GameRoom GameInfo = new(""); // "" = null username as far as concerned
-        private bool? LoggedIn = null;
-
+        private GameRoom GameInfo = new(); // "" = null username as far as concerned
+       
+        private LoginHandler LoginHandler = new();
 
         protected override async Task OnAfterRenderAsync(bool FirstRender) {
             if (!FirstRender) return;
 
-            // Login setup
-            GameInfo = new(await Cookie.GetValue(Globals.CookieUsername));
-            LoggedIn = GameInfo.Username != "";
-            if (!(LoggedIn ?? false)) {
+            // Login failure
+            if (!(LoginHandler.Login(await Cookie.GetValue(Globals.CookieUsername)) ?? false)) {
                 StateHasChanged();
                 return;
             }
@@ -28,21 +26,23 @@ namespace App075_2.Pages {
             hubConnection = new HubConnectionBuilder()
                     .WithUrl(Navigation.ToAbsoluteUri("/psych"))
                     .Build();
+            
             AddNetworkLogic();
+
+            // Start the hub
             await hubConnection.StartAsync();
-            StateHasChanged();
+            GameInfo.ConnectionID = hubConnection.ConnectionId;
 
             // Getting game info
-            await hubConnection.SendAsync("JoinRequest", GameInfo.Username);
-
+            await hubConnection.SendAsync("JoinRequest", GameInfo.ConnectionID, LoginHandler.Username);
             Loading = false;
             StateHasChanged();
         }
 
         private void AddNetworkLogic() {
             // Joining logic
-            hubConnection.On<string>("JoinRequest", (user) => {
-                hubConnection.SendAsync("JoinResponse", user, GameInfo.Username, GameInfo.CurrentAnswer, GameInfo.Score);
+            hubConnection.On<string, string>("JoinRequest", (userID, user) => {
+                hubConnection.SendAsync("JoinResponse", userID, LoginHandler.Username, GameInfo.CurrentAnswer, GameInfo.Score);
                 GameInfo.Add(new Player(user));
                 InvokeAsync(StateHasChanged);
             });
