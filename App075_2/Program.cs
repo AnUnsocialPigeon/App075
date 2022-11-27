@@ -11,7 +11,11 @@ namespace App075_2 {
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            builder.Services.AddServerSideBlazor();
+            builder.Services.AddServerSideBlazor()
+                .AddHubOptions(options => {
+                    options.ClientTimeoutInterval = TimeSpan.FromSeconds(60);
+                    options.HandshakeTimeout = TimeSpan.FromSeconds(30);
+                }); 
             builder.Services.AddSingleton<WeatherForecastService>();
             builder.Services.AddResponseCompression(opts => {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
