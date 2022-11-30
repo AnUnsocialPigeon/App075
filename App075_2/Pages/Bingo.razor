@@ -1,0 +1,31 @@
+﻿@page "/bingo"
+<PageTitle>Bingo</PageTitle>
+
+@if (LoginHandler.LoggedIn is null) {
+    <h2>Logging in...</h2>
+}
+else if (!(LoginHandler.LoggedIn ?? false)) {
+    <h2>Please log in</h2>
+}
+else if (Loading) {
+    <h2>Connecting to game server...</h2>
+}
+else {
+    <div class="row">
+        <div class="shadows col mb-4">
+            @foreach (var v in BingoBoard) {
+                <div>
+                    <span>
+                        @if (v.Enabled) {
+                            <RadzenButton Click=@(args => ToggleOption(v.Id)) Text=@v.Content ButtonStyle=ButtonStyle.Success />
+                        }
+                        else {
+                            <RadzenButton Click=@(args => ToggleOption(v.Id)) Text=@v.Content ButtonStyle=ButtonStyle.Danger />
+                        }
+                    </span>
+                </div>
+            }
+
+        </div>
+    </div>
+}

@@ -39,6 +39,7 @@ namespace App075_2 {
             app.UseRouting();
 
             app.MapBlazorHub();
+            app.MapHub<BingoHub>("/bingo");
             app.MapHub<ChatHub>("/chathub");
             app.MapHub<PsychHub>("/psych");
             app.MapFallbackToPage("/_Host");

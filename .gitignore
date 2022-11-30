@@ -32,7 +32,10 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+
+# Game data files
 [Uu]sers/
+[Bb]ingo/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
